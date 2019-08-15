@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ywd.mapper.UserMapper" >
+  <!--
+    文件的生成时间： 2019-08-14 10:09:58.
+    你应该把Mapper类的扩展方法的sql语句放在这个文件里面
+  -->
+  <select id="findListByCreateTime" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM user a
+    WHERE a.token > 0
+    <if test="startTime != null and endTime != null" >
+      and create_time between #{startTime} and #{endTime}
+    </if>
+    <if test="order != null" >
+      order by ${order}
+    </if>
+    <if test="begin != null and begin >= 0 and pageSize != null and pageSize >= 0" >
+      limit #{begin}, #{pageSize}
+    </if>
+  </select>
+</mapper>
